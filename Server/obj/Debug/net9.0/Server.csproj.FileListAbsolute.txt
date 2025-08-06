@@ -33,3 +33,4 @@ e:\C-Sharp\JobConnet\Server\obj\Debug\net9.0\ref\Server.dll
 e:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 e:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 e:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+e:\C-Sharp\JobConnet\Server\obj\Debug\net9.0\Server.sourcelink.json

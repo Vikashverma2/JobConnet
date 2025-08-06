@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\C-Sharp\\JobConnet\\Server\\Server.csproj": {}
+    "e:\\C-Sharp\\JobConnet\\Server\\Server.csproj": {}
   },
   "projects": {
-    "E:\\C-Sharp\\JobConnet\\Server\\Server.csproj": {
+    "e:\\C-Sharp\\JobConnet\\Server\\Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\C-Sharp\\JobConnet\\Server\\Server.csproj",
+        "projectUniqueName": "e:\\C-Sharp\\JobConnet\\Server\\Server.csproj",
         "projectName": "Server",
-        "projectPath": "E:\\C-Sharp\\JobConnet\\Server\\Server.csproj",
+        "projectPath": "e:\\C-Sharp\\JobConnet\\Server\\Server.csproj",
         "packagesPath": "C:\\Users\\Vikash Verma\\.nuget\\packages\\",
-        "outputPath": "E:\\C-Sharp\\JobConnet\\Server\\obj\\",
+        "outputPath": "e:\\C-Sharp\\JobConnet\\Server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Vikash Verma\\AppData\\Roaming\\NuGet\\NuGet.Config"
