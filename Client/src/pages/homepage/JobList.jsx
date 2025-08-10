@@ -112,7 +112,7 @@ function JobList() {
       <div className="job-list-grid">
         {jobsData.map((job) => (
           <div className="job-card" key={job.id}>
-            <h3>{job.title}</h3>
+            <h3 className='job-name'>{job.title}</h3>
             <p className="company-name">{job.company}</p>
             <div className="job-tags">
               <span>📍 {job.location}</span>

@@ -27,7 +27,7 @@ function Home() {
         <div className="hero-content">
           <h1>Connect with Opportunities. Connect with <span className="highlight">Talent</span>.</h1>
           <p>Your professional gateway to career growth and hiring success.</p>
-          <div className="hero-buttons">
+          <div className="auth-buttons">
             <Link to="/jobs" className="btn-filled">Find Jobs</Link>
             <Link to="/post-job" className="btn-outline">Post a Job</Link>
           </div>

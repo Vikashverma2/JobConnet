@@ -56,7 +56,7 @@ export default function AuthPage({ mode }) {
                 className="eye"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? "🙈" : "👁️"}
+            
               </span>
             </div>
           </div>
