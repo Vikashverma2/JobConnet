@@ -1,0 +1,185 @@
+/* ===== Container ===== */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ===== Glassmorphism Card ===== */
+.auth-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  text-align: center;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.glass {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ===== Title ===== */
+.auth-title {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.wave {
+  animation: waveAnim 1.5s infinite;
+  display: inline-block;
+}
+
+@keyframes waveAnim {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(20deg); }
+}
+
+/* ===== Subtitle ===== */
+.auth-subtitle {
+  font-size: 0.9rem;
+  color: #f0f0f0;
+  margin-bottom: 1.5rem;
+}
+
+/* ===== Tabs ===== */
+.auth-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  background: transparent;
+  color: white;
+  transition: 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+  border-bottom: 2px solid #fff;
+}
+
+.tab:hover {
+  color: #ffe082;
+}
+
+/* ===== Form ===== */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  text-align: left;
+}
+
+label {
+  color: white;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ===== Password Field with Eye Icon ===== */
+.password-field {
+  position: relative;
+}
+
+.password-field .eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+/* ===== Forgot Password ===== */
+.forgot-password {
+  text-align: right;
+}
+
+.forgot-password a {
+  color: #ffd54f;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Buttons ===== */
+.gradient-btn {
+  background: linear-gradient(45deg, #ff6ec4, #7873f5);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.gradient-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 5px 15px rgba(255, 110, 196, 0.5);
+}
+
+/* ===== Switch Text ===== */
+.switch-text {
+  margin-top: 1rem;
+  color: #f0f0f0;
+  font-size: 0.9rem;
+}
+
+.switch-text button {
+  background: none;
+  border: none;
+  color: #ffd54f;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.switch-text button:hover {
+  text-decoration: underline;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 400px) {
+  .auth-card {
+    width: 90%;
+    padding: 2rem;
+  }
+}
