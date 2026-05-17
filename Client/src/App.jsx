@@ -7,7 +7,7 @@ import JobDetails from './pages/homepage/JobDetails';
 // import AppliedJobs from './pages/homepage/AppliedJobs';
 import PostJob from './pages/homepage/JobList';
 
-import './App.css'
+import './App.css';
 
 function App() {
   return (
