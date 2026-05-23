@@ -1,0 +1,91 @@
+/* ════════════════════════════════════════════════════════════════
+   JOBCONNECT — DESIGN TOKENS
+   Single source of truth for every color, size, and shadow.
+   Import this file FIRST in main.jsx or index.css.
+   All other files should reference these variables — never
+   raw hex values — so restyling the whole app takes one edit.
+════════════════════════════════════════════════════════════════ */
+
+:root {
+
+  /* ── Brand / Primary ──────────────────────────────────────── */
+  --color-primary:        #2d7ef7;   /* main blue  */
+  --color-primary-light:  #5b9ef9;   /* hover / tint */
+  --color-primary-dark:   #1a5ec4;   /* pressed    */
+  --color-primary-alpha:  rgba(45, 126, 247, 0.10);  /* bg tints  */
+  --color-primary-glow:   rgba(45, 126, 247, 0.30);  /* shadows   */
+
+  /* ── Accent / Secondary ───────────────────────────────────── */
+  --color-accent:         #6f42c1;   /* purple accent */
+  --color-accent-light:   #9b72e0;
+  --color-accent-alpha:   rgba(111, 66, 193, 0.10);
+
+  /* ── Gradient (used on buttons, logos, highlights) ────────── */
+  --gradient-brand:       linear-gradient(135deg, #2d7ef7 0%, #6f42c1 100%);
+  --gradient-brand-soft:  linear-gradient(135deg, #f0f6ff 0%, #e8f0fe 50%, #f5f0ff 100%);
+
+  /* ── Neutral / Background ─────────────────────────────────── */
+  --color-bg:             #f9f9f9;
+  --color-bg-soft:        #f0f6ff;
+  --color-surface:        #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-border:         rgba(45, 126, 247, 0.12);
+  --color-border-light:   #e2e8f0;
+
+  /* ── Text ─────────────────────────────────────────────────── */
+  --color-text-heading:   #1a202c;   /* darkest — headings */
+  --color-text-body:      #2c3e50;   /* body copy          */
+  --color-text-muted:     #4a5568;   /* labels, nav        */
+  --color-text-subtle:    #718096;   /* hints, placeholders */
+  --color-text-disabled:  #a0aec0;
+
+  /* ── Semantic ─────────────────────────────────────────────── */
+  --color-success:        #22c55e;
+  --color-success-alpha:  rgba(34, 197, 94, 0.12);
+  --color-warning:        #f59e0b;
+  --color-warning-alpha:  rgba(245, 158, 11, 0.12);
+  --color-danger:         #ef4444;
+  --color-danger-alpha:   rgba(239, 68, 68, 0.12);
+  --color-info:           #3b82f6;
+  --color-info-alpha:     rgba(59, 130, 246, 0.12);
+
+  /* ── Shadows ──────────────────────────────────────────────── */
+  --shadow-xs:    0 1px 3px rgba(45, 126, 247, 0.08);
+  --shadow-sm:    0 4px 12px rgba(45, 126, 247, 0.12);
+  --shadow-md:    0 8px 24px rgba(45, 126, 247, 0.16);
+  --shadow-lg:    0 16px 40px rgba(45, 126, 247, 0.20);
+  --shadow-glow:  0 4px 14px rgba(45, 126, 247, 0.35);
+
+  /* ── Border radius ────────────────────────────────────────── */
+  --radius-sm:    6px;
+  --radius-md:    10px;
+  --radius-lg:    14px;
+  --radius-xl:    20px;
+  --radius-full:  9999px;
+
+  /* ── Typography ───────────────────────────────────────────── */
+  --font-sans:    'Poppins', 'Inter', 'Segoe UI', sans-serif;
+  --font-size-xs: 0.72rem;
+  --font-size-sm: 0.82rem;
+  --font-size-md: 0.92rem;
+  --font-size-lg: 1.05rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl:1.6rem;
+  --font-size-3xl:2.2rem;
+
+  /* ── Spacing ──────────────────────────────────────────────── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* ── Transition ───────────────────────────────────────────── */
+  --transition-fast:   0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-slow:   0.4s ease;
+}

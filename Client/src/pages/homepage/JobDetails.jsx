@@ -41,6 +41,16 @@ export default function JobDetails() {
     setSaved(!saved);
   };
 
+  // Auth guard: redirect to login if not logged in
+  const isLoggedIn = !!localStorage.getItem('jc_user');
+  const handleApply = () => {
+    if (!isLoggedIn) {
+      navigate('/login', { state: { returnTo: `/job/${id}/apply` } });
+    } else {
+      navigate(`/job/${id}/apply`);
+    }
+  };
+
   return (
     <div className="jd-page">
       {/* Navbar */}
@@ -114,7 +124,7 @@ export default function JobDetails() {
                 {isApplied ? (
                   <button className="jd-apply-btn jd-applied-btn" disabled>✓ Already Applied</button>
                 ) : (
-                  <button className="jd-apply-btn" onClick={() => navigate(`/job/${id}/apply`)}>
+                  <button className="jd-apply-btn" onClick={handleApply}>
                     Apply Now →
                   </button>
                 )}
@@ -176,8 +186,8 @@ export default function JobDetails() {
             {isApplied ? (
               <button className="jd-sidebar-apply jd-applied-btn" disabled>✓ Already Applied</button>
             ) : (
-              <button className="jd-sidebar-apply" onClick={() => navigate(`/job/${id}/apply`)}>
-                Apply Now →
+              <button className="jd-sidebar-apply" onClick={handleApply}>
+                {isLoggedIn ? 'Apply Now →' : '🔐 Login to Apply'}
               </button>
             )}
             <button className={`jd-sidebar-save${saved ? ' jd-saved' : ''}`} onClick={handleSave}>
