@@ -6,6 +6,7 @@ import JobList from './JobList';
 import HowItWorks from './HowItWorks';
 import Testimonials from './Testimonials';
 import heroBanner from '../../assets/hero-banner.jpeg';
+import { JCLogoIcon } from '../../components/JCLogo';
 
 function Home() {
   const [scrolled, setScrolled] = useState(false);
@@ -24,7 +25,7 @@ function Home() {
         <div className="container nav-container">
           {/* Logo */}
           <Link to="/" className="logo-link">
-            <div className="logo-icon">JC</div>
+            <JCLogoIcon size={34} />
             <span className="logo">Job<span className="logo-accent">Connect</span></span>
           </Link>
 

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <!-- Shine overlay -->
+  <rect width="64" height="64" rx="14" fill="url(#shine)"/>
+
+  <!-- Briefcase body -->
+  <rect x="12" y="26" width="40" height="26" rx="5" fill="#ffffff" fill-opacity="0.95"/>
+
+  <!-- Briefcase handle -->
+  <path d="M23 26 L23 21 Q23 17 27 17 L37 17 Q41 17 41 21 L41 26"
+    fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Center clasp -->
+  <rect x="28" y="35" width="8" height="6" rx="2" fill="url(#bg)"/>
+
+  <!-- Upward arrow inside (subtle) -->
+  <path d="M30 40 L32 36 L34 40" fill="url(#bg)" stroke="none"/>
+</svg>
