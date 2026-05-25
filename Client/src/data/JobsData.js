@@ -145,4 +145,14 @@ const ALL_JOBS = [
   },
 ];
 
+export function getCombinedJobs() {
+  try {
+    const custom = JSON.parse(localStorage.getItem('jc_jobs') || '[]');
+    return [...custom, ...ALL_JOBS];
+  } catch (e) {
+    console.error('Error loading custom jobs from localStorage:', e);
+    return ALL_JOBS;
+  }
+}
+
 export default ALL_JOBS;

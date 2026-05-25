@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import ALL_JOBS from '../../data/jobsData';
+import { getCombinedJobs } from '../../data/JobsData';
+import Navbar from '../../components/Navbar';
 
 const CATEGORY_ICONS = {
   Engineering: '⚙️', Design: '🎨', QA: '🧪', Analytics: '📊',
@@ -15,6 +16,7 @@ function getInitials(name) {
 export default function JobDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const ALL_JOBS = getCombinedJobs();
   const job = ALL_JOBS.find(j => j.id === id);
 
   const [saved, setSaved] = useState(() => {
@@ -53,24 +55,7 @@ export default function JobDetails() {
 
   return (
     <div className="jd-page">
-      {/* Navbar */}
-      <header className="main-header">
-        <div className="container nav-container">
-          <Link to="/" className="logo-link">
-            <div className="logo-icon">JC</div>
-            <span className="logo">Job<span className="logo-accent">Connect</span></span>
-          </Link>
-          <nav className="nav-links">
-            <Link to="/"     className="nav-item">🏠 Home</Link>
-            <Link to="/jobs" className="nav-item nav-active">💼 Find Jobs</Link>
-            <Link to="/post-job" className="nav-item">📋 Post a Job</Link>
-          </nav>
-          <div className="nav-auth">
-            <Link to="/login"  className="nav-login-btn">Login</Link>
-            <Link to="/signup" className="nav-signup-btn">Get Started <span className="btn-arrow">→</span></Link>
-          </div>
-        </div>
-      </header>
+      <Navbar />
 
       {/* Breadcrumb */}
       <div className="jd-breadcrumb">

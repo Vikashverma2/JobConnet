@@ -1,25 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
-/* ── shared data ── */
-const ALL_JOBS = [
-  { id: '1',  title: 'Frontend Developer',          company: 'TCS',               location: 'Bengaluru, Karnataka',    type: 'Full-time',  category: 'Engineering', salary: '₹8L – ₹12L / yr',   salaryMin: 800000,  description: 'Build modern, interactive user interfaces using React.js and cutting-edge web technologies.', color: '#2d7ef7' },
-  { id: '2',  title: 'Backend Developer',            company: 'Infosys',           location: 'Hyderabad, Telangana',    type: 'Full-time',  category: 'Engineering', salary: '₹10L – ₹14L / yr',  salaryMin: 1000000, description: 'Create scalable backend services using Node.js and Express with cloud deployments.',           color: '#0ea5e9' },
-  { id: '3',  title: 'UI/UX Designer',               company: 'Zoho Corp',         location: 'Chennai, Tamil Nadu',     type: 'Full-time',  category: 'Design',      salary: '₹6L – ₹9L / yr',    salaryMin: 600000,  description: 'Design intuitive UI layouts, conduct user testing and shape product experiences.',               color: '#8b5cf6' },
-  { id: '4',  title: 'Software Tester',              company: 'Wipro',             location: 'Pune, Maharashtra',       type: 'Contract',   category: 'QA',          salary: '₹4L – ₹7L / yr',    salaryMin: 400000,  description: 'Test and ensure quality of enterprise web applications across automated & manual testing.',       color: '#f59e0b' },
-  { id: '5',  title: 'Data Analyst',                 company: 'Mu Sigma',          location: 'Bengaluru, Karnataka',    type: 'Full-time',  category: 'Analytics',   salary: '₹5L – ₹8L / yr',    salaryMin: 500000,  description: 'Analyze business data, build dashboards and generate actionable insights for stakeholders.',       color: '#10b981' },
-  { id: '6',  title: 'DevOps Engineer',              company: 'Tech Mahindra',     location: 'Noida, Uttar Pradesh',    type: 'Full-time',  category: 'Engineering', salary: '₹10L – ₹15L / yr',  salaryMin: 1000000, description: 'Manage CI/CD pipelines, automate cloud infrastructure and monitor system performance.',           color: '#ef4444' },
-  { id: '7',  title: 'Cloud Architect',              company: 'Amazon AWS India',  location: 'Hyderabad, Telangana',    type: 'Full-time',  category: 'Cloud',       salary: '₹20L – ₹30L / yr',  salaryMin: 2000000, description: 'Design and architect highly available, scalable cloud solutions on AWS.',                       color: '#f97316' },
-  { id: '8',  title: 'ML Engineer',                  company: 'Google India',      location: 'Bengaluru, Karnataka',    type: 'Full-time',  category: 'AI / ML',     salary: '₹18L – ₹28L / yr',  salaryMin: 1800000, description: 'Build, train and deploy machine learning models that power real-world Google products.',          color: '#6366f1' },
-  { id: '9',  title: 'Support Engineer',             company: 'Freshworks',        location: 'Chennai, Tamil Nadu',     type: 'Part-time',  category: 'Support',     salary: '₹20K – ₹30K / mo',  salaryMin: 240000,  description: 'Provide technical support and resolution for SaaS product users globally.',                     color: '#14b8a6' },
-  { id: '10', title: 'Digital Marketing Executive',  company: 'DigiMark Agency',   location: 'Mumbai, Maharashtra',     type: 'Full-time',  category: 'Marketing',   salary: '₹4L – ₹6L / yr',    salaryMin: 400000,  description: 'Plan and execute digital campaigns across Google Ads, Meta and organic channels.',                color: '#ec4899' },
-  { id: '11', title: 'React Native Developer',       company: 'PhonePe',           location: 'Bengaluru, Karnataka',    type: 'Full-time',  category: 'Engineering', salary: '₹12L – ₹18L / yr',  salaryMin: 1200000, description: 'Build and maintain cross-platform mobile applications using React Native.',                       color: '#2d7ef7' },
-  { id: '12', title: 'Product Manager',              company: 'Flipkart',          location: 'Bengaluru, Karnataka',    type: 'Full-time',  category: 'Product',     salary: '₹15L – ₹22L / yr',  salaryMin: 1500000, description: 'Drive product strategy, roadmap and execution for India\'s largest e-commerce platform.',        color: '#8b5cf6' },
-  { id: '13', title: 'Cybersecurity Analyst',        company: 'HCL Technologies',  location: 'Noida, Uttar Pradesh',    type: 'Full-time',  category: 'Security',    salary: '₹8L – ₹13L / yr',   salaryMin: 800000,  description: 'Monitor, detect and respond to security threats across enterprise networks and systems.',          color: '#ef4444' },
-  { id: '14', title: 'Technical Writer',             company: 'Atlassian India',   location: 'Pune, Maharashtra',       type: 'Remote',     category: 'Content',     salary: '₹6L – ₹10L / yr',   salaryMin: 600000,  description: 'Create clear, concise developer documentation, guides and API references.',                      color: '#10b981' },
-  { id: '15', title: 'Scrum Master',                 company: 'Capgemini',         location: 'Mumbai, Maharashtra',     type: 'Full-time',  category: 'Management',  salary: '₹10L – ₹16L / yr',  salaryMin: 1000000, description: 'Facilitate agile ceremonies and coach teams to deliver high-quality software iteratively.',       color: '#f59e0b' },
-  { id: '16', title: 'iOS Developer',                company: 'Paytm',             location: 'Noida, Uttar Pradesh',    type: 'Full-time',  category: 'Engineering', salary: '₹14L – ₹20L / yr',  salaryMin: 1400000, description: 'Design and build advanced applications for the iOS platform using Swift.',                       color: '#0ea5e9' },
-];
+import { getCombinedJobs } from '../../data/JobsData';
+import Navbar from '../../components/Navbar';
 
 const CATEGORY_ICONS = {
   Engineering: '⚙️', Design: '🎨', QA: '🧪', Analytics: '📊',
@@ -28,7 +10,11 @@ const CATEGORY_ICONS = {
 };
 
 const TYPES      = ['All', 'Full-time', 'Part-time', 'Contract', 'Remote'];
-const CATEGORIES = ['All', ...Array.from(new Set(ALL_JOBS.map(j => j.category)))];
+const CATEGORIES = [
+  'All', 'Engineering', 'Design', 'QA', 'Analytics',
+  'Cloud', 'AI / ML', 'Support', 'Marketing', 'Product',
+  'Security', 'Content', 'Management'
+];
 const SALARY_RANGES = [
   { label: 'Any Salary',     min: 0 },
   { label: 'Up to ₹6L',     min: 0,       max: 600000 },
@@ -43,6 +29,7 @@ function getInitials(name) {
 
 export default function FindJobs() {
   const navigate = useNavigate();
+  const ALL_JOBS = useMemo(() => getCombinedJobs(), []);
 
   const [keyword,  setKeyword]  = useState('');
   const [location, setLocation] = useState('');
@@ -101,24 +88,7 @@ export default function FindJobs() {
 
   return (
     <div className="fj-page">
-      {/* ── Navbar ── */}
-      <header className="main-header">
-        <div className="container nav-container">
-          <Link to="/" className="logo-link">
-            <div className="logo-icon">JC</div>
-            <span className="logo">Job<span className="logo-accent">Connect</span></span>
-          </Link>
-          <nav className="nav-links">
-            <Link to="/"     className="nav-item">🏠 Home</Link>
-            <Link to="/jobs" className="nav-item nav-active">💼 Find Jobs</Link>
-            <Link to="/post-job" className="nav-item">📋 Post a Job</Link>
-          </nav>
-          <div className="nav-auth">
-            <Link to="/login"  className="nav-login-btn">Login</Link>
-            <Link to="/signup" className="nav-signup-btn">Get Started <span className="btn-arrow">→</span></Link>
-          </div>
-        </div>
-      </header>
+      <Navbar />
 
       {/* ── Hero Search Banner ── */}
       <section className="fj-hero">

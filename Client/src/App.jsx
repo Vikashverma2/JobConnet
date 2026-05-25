@@ -7,6 +7,7 @@ import JobDetails from './pages/homepage/JobDetails';
 import JobApply from './pages/homepage/JobApply';
 import FindJobs from './pages/homepage/FindJobs';
 import AppliedJobs from './pages/homepage/AppliedJobs';
+import PostJob from './pages/homepage/PostJob';
 
 import './App.css';
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<AuthPage mode="login" />} />
         <Route path="/signup" element={<AuthPage mode="signup" />} />
         <Route path="/jobs" element={<FindJobs />} />
+        <Route path="/post-job" element={<PostJob />} />
         <Route path="/job/:id" element={<JobDetails />} />
         <Route path="/job/:id/apply" element={<JobApply />} />
         <Route path="/applied-jobs" element={<AppliedJobs />} />

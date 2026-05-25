@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import ALL_JOBS from '../../data/jobsData';
+import { getCombinedJobs } from '../../data/JobsData';
+import Navbar from '../../components/Navbar';
 
 const STEPS = ['Personal Info', 'Experience', 'Resume & Cover Letter', 'Review'];
 
@@ -11,6 +12,7 @@ function getInitials(name) {
 export default function JobApply() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const ALL_JOBS = getCombinedJobs();
   const job = ALL_JOBS.find(j => j.id === id);
 
   const [step, setStep] = useState(0);
@@ -74,14 +76,7 @@ export default function JobApply() {
   // ── Success screen ──
   if (submitted) return (
     <div className="apply-page">
-      <header className="main-header">
-        <div className="container nav-container">
-          <Link to="/" className="logo-link">
-            <div className="logo-icon">JC</div>
-            <span className="logo">Job<span className="logo-accent">Connect</span></span>
-          </Link>
-        </div>
-      </header>
+      <Navbar />
       <div className="apply-success">
         <div className="apply-success-icon">🎉</div>
         <h2>Application Submitted!</h2>
@@ -96,23 +91,7 @@ export default function JobApply() {
 
   return (
     <div className="apply-page">
-      {/* Navbar */}
-      <header className="main-header">
-        <div className="container nav-container">
-          <Link to="/" className="logo-link">
-            <div className="logo-icon">JC</div>
-            <span className="logo">Job<span className="logo-accent">Connect</span></span>
-          </Link>
-          <nav className="nav-links">
-            <Link to="/"     className="nav-item">🏠 Home</Link>
-            <Link to="/jobs" className="nav-item">💼 Find Jobs</Link>
-          </nav>
-          <div className="nav-auth">
-            <Link to="/login"  className="nav-login-btn">Login</Link>
-            <Link to="/signup" className="nav-signup-btn">Get Started <span className="btn-arrow">→</span></Link>
-          </div>
-        </div>
-      </header>
+      <Navbar />
 
       {/* Breadcrumb */}
       <div className="jd-breadcrumb">

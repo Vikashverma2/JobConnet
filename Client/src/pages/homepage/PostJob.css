@@ -1,0 +1,525 @@
+/* PostJob Page Styles */
+
+.pj-main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  min-height: calc(100vh - 120px);
+}
+
+/* Spinner and Loaders */
+.pj-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  gap: 1rem;
+}
+
+.pj-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--color-border-light);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: pj-spin 1s linear infinite;
+}
+
+.pj-spinner-small {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: pj-spin 0.8s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes pj-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Common Button Styling */
+.pj-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.8rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 2px solid transparent;
+}
+
+.pj-btn-filled {
+  background: var(--gradient-brand);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.pj-btn-filled:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.pj-btn-outline {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: transparent;
+}
+
+.pj-btn-outline:hover {
+  background: var(--color-primary-alpha);
+  transform: translateY(-2px);
+}
+
+/* --- CASE 1: GUEST VIEW --- */
+.pj-guest-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.pj-guest-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.pj-badge {
+  display: inline-block;
+  background: var(--color-primary-alpha);
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-full);
+  letter-spacing: 1px;
+  margin-bottom: 1.2rem;
+  border: 1px solid rgba(45, 126, 247, 0.2);
+}
+
+.pj-guest-hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--color-text-heading);
+  margin: 0 0 1.2rem 0;
+}
+
+.pj-gradient-text {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pj-subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  margin-bottom: 2.5rem;
+}
+
+.pj-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.pj-stat-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 1.2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--transition-fast);
+}
+
+.pj-stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pj-stat-card h3 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin: 0 0 0.3rem 0;
+}
+
+.pj-stat-card p {
+  font-size: 0.8rem;
+  color: var(--color-text-subtle);
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Guest Action Card */
+.pj-guest-action-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.pj-guest-action-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--gradient-brand);
+}
+
+.pj-guest-action-card h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  margin: 0 0 0.5rem 0;
+}
+
+.pj-guest-action-card p {
+  color: var(--color-text-muted);
+  margin-bottom: 2rem;
+}
+
+.pj-guest-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.pj-benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-top: 1px solid var(--color-border-light);
+  padding-top: 1.5rem;
+}
+
+.pj-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.pj-benefit-check {
+  color: var(--color-success);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.pj-benefit-item span:last-child {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* --- CASE 2: CANDIDATE WARNING CARD --- */
+.pj-seeker-warning-card {
+  max-width: 600px;
+  margin: 4rem auto;
+  background: var(--color-surface);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius-xl);
+  padding: 3rem 2.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.pj-warning-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.pj-seeker-warning-card h2 {
+  font-size: 1.8rem;
+  color: var(--color-text-heading);
+  margin: 0 0 0.75rem 0;
+}
+
+.pj-seeker-warning-card p {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.pj-warning-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.pj-warning-subnote {
+  font-size: 0.75rem;
+  color: var(--color-text-subtle);
+  margin: 0;
+}
+
+/* --- CASE 3: COMPANY FORM VIEW --- */
+.pj-form-container {
+  max-width: 800px;
+  margin: 1.5rem auto;
+}
+
+.pj-form-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.pj-form-header {
+  padding: 2rem 2.5rem;
+  background: linear-gradient(180deg, #f0f6ff 0%, #ffffff 100%);
+  border-bottom: 1px solid var(--color-border-light);
+  text-align: left;
+}
+
+.pj-form-header h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-text-heading);
+  margin: 0 0 0.4rem 0;
+}
+
+.pj-form-header p {
+  color: var(--color-text-muted);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.pj-form {
+  padding: 2.5rem;
+  text-align: left;
+}
+
+.pj-form-section {
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: 2rem;
+}
+
+.pj-form-section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 1.5rem;
+}
+
+.pj-form-section h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 1.5rem 0;
+  position: relative;
+  padding-left: 0.75rem;
+}
+
+.pj-form-section h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 3px;
+  bottom: 3px;
+  width: 3px;
+  background: var(--color-primary);
+  border-radius: 2px;
+}
+
+.pj-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.pj-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.pj-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.pj-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-heading);
+}
+
+.pj-label-hint {
+  font-size: 0.75rem;
+  color: var(--color-text-subtle);
+  font-weight: 400;
+}
+
+.pj-hint-text {
+  font-size: 0.75rem;
+  color: var(--color-text-subtle);
+  margin-top: 0.1rem;
+}
+
+.pj-field input[type="text"],
+.pj-field input[type="number"],
+.pj-field select,
+.pj-field textarea {
+  font-family: inherit;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.9rem;
+  border: 1.5px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text-heading);
+  transition: all var(--transition-fast);
+}
+
+.pj-field input:focus,
+.pj-field select:focus,
+.pj-field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(45, 126, 247, 0.15);
+}
+
+.pj-input-err {
+  border-color: var(--color-danger) !important;
+}
+
+.pj-error-text {
+  font-size: 0.75rem;
+  color: var(--color-danger);
+  font-weight: 500;
+}
+
+.max-w-sm {
+  max-width: 320px;
+}
+
+/* Success Card View */
+.pj-success-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-success);
+  border-radius: var(--radius-xl);
+  padding: 4rem 3rem;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.pj-success-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  background: var(--color-success-alpha);
+  color: var(--color-success);
+  border-radius: 50%;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  animation: pj-bounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pj-bounce {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.1); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.pj-success-card h2 {
+  font-size: 2rem;
+  color: var(--color-text-heading);
+  margin: 0 0 0.75rem 0;
+}
+
+.pj-success-card p {
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.pj-success-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.pj-form-footer {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid var(--color-border-light);
+  padding-top: 1.5rem;
+  margin-top: 1rem;
+}
+
+.pj-submit-btn {
+  padding: 0.85rem 2.5rem;
+  font-size: 1rem;
+  background: var(--gradient-brand);
+}
+
+/* Responsive queries */
+@media (max-width: 900px) {
+  .pj-guest-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-top: 1rem;
+  }
+  
+  .pj-guest-hero {
+    align-items: center;
+    text-align: center;
+  }
+  
+  .pj-guest-hero h1 {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .pj-grid-2, .pj-grid-3 {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .pj-main-content {
+    padding: 1.5rem 1rem;
+  }
+  
+  .pj-form-header, .pj-form {
+    padding: 1.5rem;
+  }
+  
+  .pj-warning-actions, .pj-success-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .pj-btn {
+    width: 100%;
+  }
+}

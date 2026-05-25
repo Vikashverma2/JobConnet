@@ -50,7 +50,7 @@ export default function AuthPage({ mode }) {
   const returnTo = location.state?.returnTo || "/";
 
   const [isLogin, setIsLogin] = useState(mode !== "signup");
-  const [role, setRole] = useState("seeker");
+  const [role, setRole] = useState(location.state?.role || "seeker");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -86,10 +86,26 @@ export default function AuthPage({ mode }) {
     if (!validate()) return;
     setSubmitting(true);
     setTimeout(() => {
+      let userName = "";
+      if (isLogin) {
+        const prefix = form.email.split('@')[0];
+        userName = prefix.charAt(0).toUpperCase() + prefix.slice(1);
+        if (role === "company" && userName.toLowerCase() === "you") {
+          userName = "Acme Corp";
+        }
+      } else {
+        userName = role === "seeker" ? form.fullName : form.companyName;
+      }
+
       localStorage.setItem("jc_user", JSON.stringify({
-        email: form.email, role,
-        name: role === "seeker" ? form.fullName : form.companyName,
+        email: form.email,
+        role,
+        name: userName,
       }));
+
+      // Dispatch auth change event to update Navbar instantly
+      window.dispatchEvent(new Event("jc_auth_change"));
+
       setSubmitting(false);
       navigate(returnTo, { replace: true });
     }, 800);
@@ -185,21 +201,19 @@ export default function AuthPage({ mode }) {
             <button className={`auth-tab ${!isLogin ? "active" : ""}`} onClick={() => switchMode(false)}>Sign Up</button>
           </div>
 
-          {/* Role toggle — signup only */}
-          {!isLogin && (
-            <div className="auth-role-toggle">
-              <button type="button"
-                className={`auth-role-btn ${role === "seeker" ? "active" : ""}`}
-                onClick={() => { setRole("seeker"); setErrors({}); }}>
-                🧑‍💼 Job Seeker
-              </button>
-              <button type="button"
-                className={`auth-role-btn ${role === "company" ? "active" : ""}`}
-                onClick={() => { setRole("company"); setErrors({}); }}>
-                🏢 Company
-              </button>
-            </div>
-          )}
+          {/* Role toggle — login and signup */}
+          <div className="auth-role-toggle">
+            <button type="button"
+              className={`auth-role-btn ${role === "seeker" ? "active" : ""}`}
+              onClick={() => { setRole("seeker"); setErrors({}); }}>
+              🧑‍💼 Job Seeker
+            </button>
+            <button type="button"
+              className={`auth-role-btn ${role === "company" ? "active" : ""}`}
+              onClick={() => { setRole("company"); setErrors({}); }}>
+              🏢 Company
+            </button>
+          </div>
 
           {/* Return notice */}
           {returnTo !== "/" && (
