@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import "./AuthPage.css";
 import authIllustration from "../../assets/auth-illustration.png";
+import { apiLogin, apiRegister } from "../../api/api";
 import { JCLogoIcon } from "../../components/JCLogo";
 
 /* ── Inline SVG icons ─────────────────────────────────────────── */
@@ -44,6 +45,37 @@ const BuildingIcon = () => (
   </svg>
 );
 
+/* Reusable icon input */
+const Field = ({ id, label, icon, type = "text", value, onChange, placeholder, error, children }) => (
+  <div className="auth-field">
+    <label htmlFor={id}>{label}</label>
+    <div className="auth-input-wrap">
+      <span className="auth-input-icon">{icon}</span>
+      {children || (
+        <input id={id} type={type} value={value} onChange={onChange}
+          placeholder={placeholder} className={error ? "is-error" : ""} />
+      )}
+    </div>
+    {error && <span className="auth-err">{error}</span>}
+  </div>
+);
+
+const PwField = ({ id, label, show, onToggle, value, onChange, placeholder, error }) => (
+  <div className="auth-field">
+    <label htmlFor={id}>{label}</label>
+    <div className="auth-input-wrap">
+      <span className="auth-input-icon"><LockIcon /></span>
+      <input id={id} type={show ? "text" : "password"} value={value}
+        onChange={onChange} placeholder={placeholder}
+        className={error ? "is-error" : ""} />
+      <button type="button" className="auth-eye" onClick={onToggle}>
+        {show ? <EyeOffIcon /> : <EyeIcon />}
+      </button>
+    </div>
+    {error && <span className="auth-err">{error}</span>}
+  </div>
+);
+
 export default function AuthPage({ mode }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -81,68 +113,49 @@ export default function AuthPage({ mode }) {
     return Object.keys(e).length === 0;
   };
 
-  const handleSubmit = (ev) => {
+  const [apiError, setApiError] = useState("");
+
+  const handleSubmit = async (ev) => {
     ev.preventDefault();
     if (!validate()) return;
     setSubmitting(true);
-    setTimeout(() => {
-      let userName = "";
+    setApiError("");
+
+    try {
+      let response;
       if (isLogin) {
-        const prefix = form.email.split('@')[0];
-        userName = prefix.charAt(0).toUpperCase() + prefix.slice(1);
-        if (role === "company" && userName.toLowerCase() === "you") {
-          userName = "Acme Corp";
-        }
+        response = await apiLogin({ email: form.email, password: form.password, role });
       } else {
-        userName = role === "seeker" ? form.fullName : form.companyName;
+        const name = role === "seeker" ? form.fullName : form.companyName;
+        response = await apiRegister({ name, email: form.email, password: form.password, role });
       }
 
+      // Store full user object with JWT token
       localStorage.setItem("jc_user", JSON.stringify({
-        email: form.email,
-        role,
-        name: userName,
+        id:    response.id,
+        email: response.email,
+        role:  response.role,
+        name:  response.name,
+        token: response.token,
       }));
 
-      // Dispatch auth change event to update Navbar instantly
       window.dispatchEvent(new Event("jc_auth_change"));
-
       setSubmitting(false);
-      navigate(returnTo, { replace: true });
-    }, 800);
+
+      // Company users go to dashboard; others go to user dashboard (applied-jobs)
+      if (response.role === "company") {
+        navigate("/company/dashboard", { replace: true });
+      } else {
+        navigate(returnTo === "/" ? "/applied-jobs" : returnTo, { replace: true });
+      }
+    } catch (err) {
+      setApiError(err.message || "Something went wrong. Please try again.");
+      setSubmitting(false);
+    }
   };
 
+
   const switchMode = (login) => { setIsLogin(login); setErrors({}); };
-
-  /* Reusable icon input */
-  const Field = ({ id, label, icon, type = "text", value, onChange, placeholder, error, children }) => (
-    <div className="auth-field">
-      <label htmlFor={id}>{label}</label>
-      <div className="auth-input-wrap">
-        <span className="auth-input-icon">{icon}</span>
-        {children || (
-          <input id={id} type={type} value={value} onChange={onChange}
-            placeholder={placeholder} className={error ? "is-error" : ""} />
-        )}
-      </div>
-      {error && <span className="auth-err">{error}</span>}
-    </div>
-  );
-
-  const PwField = ({ id, label, show, onToggle, value, onChange, placeholder, error }) => (
-    <div className="auth-field">
-      <label htmlFor={id}>{label}</label>
-      <div className="auth-input-wrap">
-        <span className="auth-input-icon"><LockIcon /></span>
-        <input id={id} type={show ? "text" : "password"} value={value}
-          onChange={onChange} placeholder={placeholder}
-          className={error ? "is-error" : ""} />
-        <button type="button" className="auth-eye" onClick={onToggle}>
-          {show ? <EyeOffIcon /> : <EyeIcon />}
-        </button>
-      </div>
-      {error && <span className="auth-err">{error}</span>}
-    </div>
-  );
 
   return (
     <div className="auth-page">

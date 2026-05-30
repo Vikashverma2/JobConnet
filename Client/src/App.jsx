@@ -8,6 +8,7 @@ import JobApply from './pages/homepage/JobApply';
 import FindJobs from './pages/homepage/FindJobs';
 import AppliedJobs from './pages/homepage/AppliedJobs';
 import PostJob from './pages/homepage/PostJob';
+import CompanyDashboard from './pages/company/CompanyDashboard';
 
 import './App.css';
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/job/:id" element={<JobDetails />} />
         <Route path="/job/:id/apply" element={<JobApply />} />
         <Route path="/applied-jobs" element={<AppliedJobs />} />
+        <Route path="/company/dashboard" element={<CompanyDashboard />} />
       </Routes>
     </Router>
   );
