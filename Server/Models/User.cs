@@ -7,15 +7,18 @@ namespace Server.Models
     {
         [BsonId] 
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [BsonElement("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [BsonElement("email")]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [BsonElement("password")]
-        public string Password { get; set; } // Plain text for testing only
+        public string Password { get; set; } = string.Empty; // Plain text for testing only
+
+        [BsonElement("role")]
+        public string Role { get; set; } = "seeker";
     }
 }

@@ -40,3 +40,12 @@ e:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\MongoDB.Driver.dll
 e:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\SharpCompress.dll
 e:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\Snappier.dll
 e:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\ZstdSharp.dll
+E:\C-Sharp\JobConnet\Server\obj\Debug\net9.0\swae.build.ex.cache
+E:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+E:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+E:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+E:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+E:\C-Sharp\JobConnet\Server\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll

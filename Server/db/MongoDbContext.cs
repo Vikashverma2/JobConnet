@@ -1,22 +1,21 @@
-using System;
-using System.Security.Authentication;
 using MongoDB.Driver;
+using Microsoft.Extensions.Configuration;
 
 namespace Server.db;
 
 public class MongoDbContext
 {
-
     private readonly IMongoDatabase _database;
-    public MongoDbContext()
+
+    public MongoDbContext(IConfiguration configuration)
     {
-        var connectionString = "mongodb://localhost:27017/";
-        var databaseName = "JobsPortal";
-        var clientSettings = MongoClientSettings.FromConnectionString(connectionString);
-        clientSettings.SslSettings = new SslSettings { EnabledSslProtocols = SslProtocols.Tls12 };
-        var client = new MongoClient(clientSettings);
+        var connectionString = configuration["MongoDB:ConnectionString"] ?? "mongodb://localhost:27017/";
+        var databaseName     = configuration["MongoDB:DatabaseName"]     ?? "JobsPortal";
+
+        var client    = new MongoClient(connectionString);
         _database = client.GetDatabase(databaseName);
     }
+
     public IMongoCollection<T> GetCollection<T>(string collectionName)
     {
         return _database.GetCollection<T>(collectionName);

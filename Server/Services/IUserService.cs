@@ -1,9 +1,10 @@
-using System;
 using Server.Models;
 
 namespace Server.Services;
 
 public interface IUserService
 {
-    Task<User> CreateUser(User user);
+    Task<AuthResponse> Register(RegisterRequest request);
+    Task<AuthResponse?> Login(LoginRequest request);
+    Task<User?> GetById(string id);
 }

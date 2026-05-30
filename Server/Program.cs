@@ -1,18 +1,28 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Server.db;
 using Server.Services;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register services
+// ── MongoDB Context (Singleton – one connection pool) ────────────────────
+builder.Services.AddSingleton<MongoDbContext>();
 
+// ── Application Services ─────────────────────────────────────────────────
+builder.Services.AddScoped<IUserService,           UserService>();
+builder.Services.AddScoped<IJobService,            JobService>();
+builder.Services.AddScoped<IJobApplicationService, JobApplicationService>();
+
+// ── Controllers + Swagger ────────────────────────────────────────────────
 builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<IUserService, UserService>();
-// ✅ Add CORS policy
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "JobConnect API", Version = "v1" });
+});
 
+// ── CORS – allow React dev server ────────────────────────────────────────
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -24,22 +34,39 @@ builder.Services.AddCors(options =>
     });
 });
 
+// ── JWT Authentication ───────────────────────────────────────────────────
+var jwtKey = builder.Configuration["Jwt:Key"]
+             ?? "JobConnectDefaultSecretKey2024XYZ!_FALLBACK";
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer           = true,
+            ValidateAudience         = true,
+            ValidateLifetime         = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer              = builder.Configuration["Jwt:Issuer"]   ?? "JobConnect",
+            ValidAudience            = builder.Configuration["Jwt:Audience"] ?? "JobConnectUsers",
+            IssuerSigningKey         = new SymmetricSecurityKey(
+                                          Encoding.UTF8.GetBytes(jwtKey))
+        };
+    });
+
+// ─────────────────────────────────────────────────────────────────────────
 var app = builder.Build();
 
-// Enable Swagger in development
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// ✅ Use CORS before controllers
-app.UseCors("AllowAll");
-
+app.UseCors("AllowAll");    
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
