@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import DashboardPostJob from './DashboardPostJob';
 import './CompanyDashboard.css';
 
 const CompanyDashboard = () => {
@@ -9,6 +10,7 @@ const CompanyDashboard = () => {
   const [applications, setApplications] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   const userStr = localStorage.getItem('jc_user');
   const user = userStr ? JSON.parse(userStr) : null;
@@ -106,7 +108,38 @@ const CompanyDashboard = () => {
           >
             <span className="icon">🏢</span> Company Profile
           </button>
+          <button 
+            className={`nav-item ${activeTab === 'post-job' ? 'active' : ''}`}
+            onClick={() => { setActiveTab('post-job'); setSelectedJob(null); }}
+          >
+            <span className="icon">➕</span> Post a Job
+          </button>
         </nav>
+
+        <div className="sidebar-footer">
+          <div className="sidebar-profile" onClick={() => setShowProfileMenu(!showProfileMenu)}>
+            <div className="profile-avatar">
+              {companyName.charAt(0).toUpperCase()}
+            </div>
+            <div className="profile-info">
+              <span className="profile-name">{companyName}</span>
+              <span className="profile-role">Employer Profile</span>
+            </div>
+            <span className="profile-caret">⋮</span>
+          </div>
+          
+          {showProfileMenu && (
+            <div className="profile-dropdown">
+               <div className="dropdown-details">
+                 <p className="dd-name">{companyName}</p>
+                 <p className="dd-email">{user?.email || 'employer@company.com'}</p>
+               </div>
+               <button className="dropdown-logout" onClick={handleLogout}>
+                 🚪 Log Out
+               </button>
+            </div>
+          )}
+        </div>
       </aside>
 
       {/* MAIN CONTENT */}
@@ -116,7 +149,6 @@ const CompanyDashboard = () => {
             <h1>Welcome, {companyName}</h1>
             <p>Here is what's happening with your job postings today.</p>
           </div>
-          <button className="logout-btn" onClick={handleLogout}>Log Out</button>
         </header>
 
         {/* OVERVIEW TAB */}
@@ -161,39 +193,42 @@ const CompanyDashboard = () => {
 
         {/* JOBS VIEW */}
         {activeTab === 'jobs' && !selectedJob && (
-          <div className="jobs-grid">
-            {jobs.length === 0 ? (
-              <div className="empty-state" style={{ gridColumn: '1 / -1' }}>
-                <h3>No jobs posted yet.</h3>
-                <p>Use the API to post your first job to start receiving candidates!</p>
-              </div>
-            ) : (
-              jobs.map(job => {
-                const appCount = getApplicationsForJob(job.id).length;
-                return (
-                  <div 
-                    key={job.id} 
-                    className="job-card"
-                    onClick={() => {
-                      setSelectedJob(job);
-                      setActiveTab('candidates');
-                    }}
-                  >
-                    <div className="job-card-title">{job.title}</div>
-                    <div className="job-card-meta">
-                      <span>📍 {job.location}</span>
-                      <span>💼 {job.type}</span>
+          <div>
+            <div className="jobs-grid">
+              {jobs.length === 0 ? (
+                <div className="empty-state" style={{ gridColumn: '1 / -1' }}>
+                  <h3>No jobs posted yet.</h3>
+                  <p style={{ marginBottom: '1.5rem' }}>Start receiving candidates by publishing your first job listing!</p>
+                  <button className="btn-post-job-tab" onClick={() => setActiveTab('post-job')}>+ Post Your First Job</button>
+                </div>
+              ) : (
+                jobs.map(job => {
+                  const appCount = getApplicationsForJob(job.id).length;
+                  return (
+                    <div 
+                      key={job.id} 
+                      className="job-card"
+                      onClick={() => {
+                        setSelectedJob(job);
+                        setActiveTab('candidates');
+                      }}
+                    >
+                      <div className="job-card-title">{job.title}</div>
+                      <div className="job-card-meta">
+                        <span>📍 {job.location}</span>
+                        <span>💼 {job.type}</span>
+                      </div>
+                      <div className="job-card-footer">
+                        <span className="stat-pill">{appCount} Applicants</span>
+                        <span style={{ color: 'var(--color-text-subtle)', fontSize: 'var(--font-size-xs)' }}>
+                          {new Date(job.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
                     </div>
-                    <div className="job-card-footer">
-                      <span className="stat-pill">{appCount} Applicants</span>
-                      <span style={{ color: 'var(--color-text-subtle)', fontSize: 'var(--font-size-xs)' }}>
-                        {new Date(job.createdAt).toLocaleDateString()}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })
-            )}
+                  );
+                })
+              )}
+            </div>
           </div>
         )}
 
@@ -274,6 +309,19 @@ const CompanyDashboard = () => {
               </tbody>
             </table>
           </div>
+        )}
+
+        {/* POST JOB VIEW */}
+        {activeTab === 'post-job' && (
+          <DashboardPostJob 
+            companyId={companyId} 
+            companyName={companyName} 
+            onCancel={() => setActiveTab('jobs')}
+            onJobPosted={(newJob) => {
+              setJobs([newJob, ...jobs]);
+              setActiveTab('jobs');
+            }} 
+          />
         )}
 
         {/* COMPANY PROFILE */}

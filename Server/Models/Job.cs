@@ -23,6 +23,9 @@ namespace Server.Models
         [BsonElement("type")]
         public string Type { get; set; } = string.Empty; // Full-time, Part-time, Contract, Remote
 
+        [BsonElement("workMode")]
+        public string WorkMode { get; set; } = string.Empty; // Remote, Hybrid, On-site
+
         [BsonElement("category")]
         public string Category { get; set; } = string.Empty; // Engineering, Design, etc.
 
@@ -52,6 +55,9 @@ namespace Server.Models
 
         [BsonElement("benefits")]
         public List<string> Benefits { get; set; } = new();
+
+        [BsonElement("skills")]
+        public List<string> Skills { get; set; } = new();
 
         [BsonElement("isNew")]
         public bool IsNew { get; set; } = true;
